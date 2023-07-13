@@ -1,22 +1,25 @@
 import { useState } from "react";
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 import Notification from './Notification/Notification';
 import FeedbackOptions from "./Button/Button";
 import Statistics from "./Statistics/Statistics";
 import SectionTitle from "./SectionTitle/SectionTitle";
 
-
-
 export const App = () => {
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
+  const options = {good, neutral, bad};
 
-  const onLeaveFeedback = (goodValue, neutralValue, badValue) => {
-    setGood(goodValue + 1);
-    setNeutral(neutralValue + 1);
-    setBad(badValue + 1);
+  const onLeaveFeedback = (type) => {
+    if (type === 'good') {
+      setGood(good + 1);
+    } else if (type === 'neutral') {
+      setNeutral(neutral + 1);
+    } else if (type === 'bad') {
+      setBad(bad + 1);
+    }
   };
 
   const countTotalFeedback = () => {
@@ -34,9 +37,9 @@ return (
       <>
         <SectionTitle>
           <h2>Please leave feedback</h2>
-          <FeedbackOptions
-  options={[good, neutral, bad]}
-  onLeaveFeedback={() => onLeaveFeedback(good, neutral, bad)}
+      <FeedbackOptions
+        options={Object.keys(options)}
+  onLeaveFeedback={onLeaveFeedback}
 />
         </SectionTitle>
 
@@ -45,7 +48,7 @@ return (
 
           {totalFeedback !== 0 ? (
             <Statistics
-              value={{ good, neutral, bad }}
+              value={options}
               countTotalFeedback={countTotalFeedback}
               countPositiveFeedbackPercentage={
                 countPositiveFeedbackPercentage
