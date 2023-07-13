@@ -3,13 +3,23 @@ import css from "./button.module.css";
 
 
 const FeedbackOptions = ({ options, onLeaveFeedback }) => {
+    console.log(options)
     return (
-        options.map(option => (
-            <button key={option} className={css.button} onClick={() => onLeaveFeedback(option)}>
-                {option}
-            </button>
-        ))
-    );
+        <>
+            <button className={css.button}
+            onClick={() => onLeaveFeedback(options.goodValue)}>
+                Good
+        </button>
+        <button className={css.button}
+            onClick={() => onLeaveFeedback(options.neutralValue)}>
+                Neutral
+        </button>
+        <button className={css.button}
+            onClick={() => onLeaveFeedback(options.badValue)}>
+                Bad
+        </button>
+        </>
+    )
 };
 
 FeedbackOptions.propTypes = {
